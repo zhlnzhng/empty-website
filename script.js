@@ -37,6 +37,12 @@ document.addEventListener('click', () => {
   }
   
 });
+window.onload = function () {
+  if (!isShowing) {
+    showText();
+    clearTimeout(timeout);
+  }
+};
 
 // document.addEventListener('mouseup', () => {
 //   if (isShowing) {
