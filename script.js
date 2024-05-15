@@ -24,7 +24,7 @@ function hideText() {
     i--;
     if (i < 0) {
       clearInterval(interval);
-      text.style.opacity = 0;
+      text.style.opacity = 1;
       isShowing = false;
     }
   }, 200);
@@ -43,12 +43,3 @@ window.onload = function () {
     clearTimeout(timeout);
   }
 };
-
-// document.addEventListener('mouseup', () => {
-//   if (isShowing) {
-//     hideText();
-//     clearTimeout(timeout);
-//     // timeout = setTimeout(hideText, 3000);
-//   }
-  
-// });
