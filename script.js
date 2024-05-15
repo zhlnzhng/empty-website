@@ -14,7 +14,7 @@ function showText() {
       // isShowing = true;
       timeout = setTimeout(hideText, 3000);
     }
-  }, 200);
+  }, 250);
 }
 
 function hideText() {
@@ -27,7 +27,7 @@ function hideText() {
       text.style.opacity = 1;
       isShowing = false;
     }
-  }, 200);
+  }, 250);
 }
 
 document.addEventListener('click', () => {
