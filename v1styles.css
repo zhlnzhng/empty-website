@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  
+  #text {
+    font-size: 2rem;
+    font-weight: 400;
+    opacity: 0;
+    font-family: 'SF Mono', Courier, monospace;
+    border-right: 0.1em solid;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0% { border-color: black; } /* 开始时边框透明 */
+    49% { border-color: black; } /* 保持透明直到49% */
+    50% { border-color: transparent; } /* 从50%开始变为黑色或其他颜色 */
+    100% { border-color: transparent; } /* 保持这个颜色直到100% */
+  }
