@@ -41,6 +41,7 @@ a {
   .container {
       max-width: calc(100% - 24px);
       margin: 0 auto;
+      padding: 32px;
       font-size: 11px;
   }
 }
