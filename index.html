@@ -16,8 +16,8 @@
             background-color: #f0f0f0;
         }
         .word {
-            font-size: 48px;
             position: relative;
+            left: -90px;
             height: 60px;
             cursor: grab;
         }
@@ -25,7 +25,6 @@
             display: inline-block;
             transition: all 0.3s ease;
             position: absolute;
-            width: 40px;
             text-align: center;
         }
         .letter.hide {
@@ -43,12 +42,24 @@
         const wordElement = document.getElementById('emptyWord');
         let remainingLetters = word.toLowerCase().split('');
 
+        function setLetterSize() {
+            const windowWidth = window.innerWidth;
+            let letterSize = 48;
+            let letterWidth = 40;
+
+            document.documentElement.style.setProperty('--letter-size', `${letterSize}px`);
+            document.documentElement.style.setProperty('--letter-width', `${letterWidth}px`);
+        }
+
         function createLetters() {
+            setLetterSize();
             word.split('').forEach((letter, index) => {
                 const span = document.createElement('span');
                 span.textContent = letter;
                 span.className = 'letter';
-                span.style.left = `${index * 40}px`;
+                span.style.fontSize = 'var(--letter-size)';
+                span.style.width = 'var(--letter-width)';
+                span.style.left = `calc(${index} * var(--letter-width))`;
                 wordElement.appendChild(span);
             });
         }
@@ -57,7 +68,7 @@
             const letters = wordElement.querySelectorAll('.letter:not(.hide)');
             letters.forEach((letter, index) => {
                 letter.style.transition = 'left 0.2s ease';
-                letter.style.left = `${index * 40}px`;
+                letter.style.left = `calc(${index} * var(--letter-width))`;
             });
         }
 
@@ -86,6 +97,10 @@
 
         createLetters();
         wordElement.addEventListener('click', handleClick);
+        window.addEventListener('resize', () => {
+            setLetterSize();
+            updateLetterPositions();
+        });
     </script>
 </body>
 </html>
