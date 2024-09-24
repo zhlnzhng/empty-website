@@ -4,24 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empty Studio</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f0f0f0;
+        }
+        .word {
+            font-size: 48px;
+            position: relative;
+            height: 60px;
+            cursor: grab;
+        }
+        .letter {
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: absolute;
+            width: 40px;
+            text-align: center;
+        }
+        .letter.hide {
+            opacity: 0;
+            filter: blur(8px);
+            transform: scale(0.8);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <p>this is Empty.<br>
-        a software studio aspiring to develop software solutions for individuals who genuinely embrace critical thinking.<br>
-        we believe in the power of simplicity, that less is more.<br>
-        we believe that exceptional software is an integral part of a life well-lived.<br>
-        we believe in the honesty of details.<br>
-        we embrace innovative ideas and are willing to take risks to create works that stand alone.<br>
-        we pursue lasting value, not ephemeral trends.<br>
-        we remain humble, always learning.<br>
-        we are the survivors of idealism.<br>
-        we see the absurdity of the world,<br>
-        yet we still understand the profound meaning of love.<br>
-        this is Empty.</p>
-        <p class="footer-info">contact: <a href="mailto:hey@empty.mt">hey@empty.mt</a></p>
-    </div>
+    <div class="word" id="emptyWord"></div>
+
+    <script>
+        const word = "EMPTY";
+        const wordElement = document.getElementById('emptyWord');
+        let remainingLetters = word.toLowerCase().split('');
+
+        function createLetters() {
+            word.split('').forEach((letter, index) => {
+                const span = document.createElement('span');
+                span.textContent = letter;
+                span.className = 'letter';
+                span.style.left = `${index * 40}px`;
+                wordElement.appendChild(span);
+            });
+        }
+
+        function updateLetterPositions() {
+            const letters = wordElement.querySelectorAll('.letter:not(.hide)');
+            letters.forEach((letter, index) => {
+                letter.style.transition = 'left 0.2s ease';
+                letter.style.left = `${index * 40}px`;
+            });
+        }
+
+        function removeLetter(letterElement) {
+            letterElement.style.transition = 'all 0.3s ease';
+            letterElement.classList.add('hide');
+            setTimeout(() => {
+                letterElement.remove();
+                updateLetterPositions();
+            }, 300);
+        }
+
+        function handleClick(e) {
+            if (e.target.classList.contains('letter')) {
+                const clickedLetter = e.target.textContent.toLowerCase();
+                
+                if (remainingLetters.length === 2 && remainingLetters.includes('m') && remainingLetters.includes('t')) {
+                    document.querySelectorAll('.letter').forEach(removeLetter);
+                    remainingLetters = [];
+                } else if (['e', 'p', 'y'].includes(clickedLetter)) {
+                    removeLetter(e.target);
+                    remainingLetters = remainingLetters.filter(l => l !== clickedLetter);
+                }
+            }
+        }
+
+        createLetters();
+        wordElement.addEventListener('click', handleClick);
+    </script>
 </body>
 </html>
