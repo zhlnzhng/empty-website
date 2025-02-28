@@ -86,7 +86,7 @@ p {
   border-radius: 32px;
   background: linear-gradient(90deg, #3a3a3a, #252525, #626262, #414141);
   background-size: 300% 300%;
-  animation: moveGradient 4s alternate infinite;
+  animation: moveGradient 16s alternate infinite;
 }
 
 @keyframes moveGradient {
