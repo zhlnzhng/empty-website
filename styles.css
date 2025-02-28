@@ -7,7 +7,7 @@
 body {
   background-color: #000;
   color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
     "Helvetica Neue", sans-serif;
   height: 100vh;
   display: flex;
@@ -25,54 +25,83 @@ body {
   padding: 20px;
 }
 
-/* 3D Cosmic Disc */
-.cosmic-disc {
-  position: relative;
-  width: 260px;
-  height: 160px;
+/* Cosmic Image */
+.cosmic-image {
   margin-bottom: 60px;
+  overflow: hidden;
 }
 
-.disc-top {
-  position: absolute;
+.cosmic-image img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
-
-.disc-top img {
-  width: 100%;
-}
-
 
 /* Text Content */
 h1 {
   font-size: 5rem;
-  font-weight: bold;
+  font-weight: 700;
   margin-top: 20px;
   margin-bottom: 10px;
+  letter-spacing: -0.03em;
 }
 
 p {
   color: #999;
   font-size: 1.2rem;
   margin-bottom: 40px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-/* App Store Button */
-button {
-  background-color: #222;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 16px 0;
+/* Gradient Button */
+.gradient-button {
+  position: relative;
+  display: inline-block;
   width: 100%;
   max-width: 280px;
+  padding: 16px 0;
   font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  background: #111;
+  z-index: 1;
+  font-family: "Inter", sans-serif;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: white;
+  text-align: center;
 }
 
-button:hover {
-  background-color: #333;
+.gradient-button::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  z-index: -1;
+  border-radius: 32px;
+  background: linear-gradient(90deg, #3a3a3a, #252525, #626262, #414141);
+  background-size: 300% 300%;
+  animation: moveGradient 4s alternate infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-button:hover::before {
+  animation-play-state: paused;
 }
 
