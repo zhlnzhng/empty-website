@@ -30,12 +30,12 @@ body {
   max-width: 90%;
   margin-bottom: 40px;
   overflow: hidden;
-  animation: fadeIn 5s;
 }
 
 .cosmic-image img {
   object-fit: cover;
   width: 100%;
+  animation: fadeIn 5s;
 }
 
 @keyframes fadeIn {
