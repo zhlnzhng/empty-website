@@ -35,7 +35,9 @@ body {
 .cosmic-image img {
   object-fit: cover;
   width: 100%;
+  opacity: 0;
   animation: fadeIn 5s;
+  animation-delay: 1s;
 }
 
 @keyframes fadeIn {
