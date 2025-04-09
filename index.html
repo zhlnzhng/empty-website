@@ -1,32 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Empty Studio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty Studio</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Add Inter font from Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+        }
+        
+        .gradient-rectangle {
+            width: 36px;
+            height: 48px;
+            border-radius: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* 添加手指光标效果 */
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Cosmic Image -->
-    <div class="cosmic-image">
-      <img src="headerimage.png" alt="Cosmic image">
-    </div>
-    
-    <!-- Text Content -->
-    <h1>Empty</h1>
-    <p>A software studio.</p>
-    
-    <!-- App Store Button with gradient border -->
-    <a href="https://apps.apple.com/us/developer/empty-studio/id1468461395" target="_blank" rel="noopener noreferrer" class="gradient-button">
-      App Store
-    </a>
-  </div>
+    <div class="gradient-rectangle" id="rectangle" onclick="window.location.href='https://apps.apple.com/us/developer/empty-studio/id1468461395';"></div>
+
+    <script>
+        // 获取矩形元素
+        const rectangle = document.getElementById('rectangle');
+        
+        // 定义颜色数组 - 使用HSL便于平滑过渡，只保留黄、橙、绿三种颜色
+        const colors = [
+            [30, 100, 50],   // 橙
+            [60, 100, 50],   // 黄
+            [120, 100, 50]   // 绿
+        ];
+        
+        // 当前颜色索引
+        let colorIndex = 0;
+        // 动画帧请求ID
+        let animationId;
+        // 颜色变化的速度
+        const speed = 0.005;
+        // 当前进度 (0-1)
+        let progress = 0;
+        
+        // 更新渐变颜色
+        function updateGradient() {
+            // 获取当前颜色和下一个颜色
+            const currentColor = colors[colorIndex];
+            const nextColorIndex = (colorIndex + 1) % colors.length;
+            const nextColor = colors[nextColorIndex];
+            
+            // 计算当前HSL值
+            const h = currentColor[0] + (nextColor[0] - currentColor[0]) * progress;
+            const s = currentColor[1] + (nextColor[1] - currentColor[1]) * progress;
+            const l = currentColor[2] + (nextColor[2] - currentColor[2]) * progress;
+            
+            // 创建渐变背景 - 使用三种颜色的变体
+            const backgroundGradient = `linear-gradient(45deg, 
+                hsl(${h}, ${s}%, ${l}%), 
+                hsl(${(h+40)%360}, ${s}%, ${l}%), 
+                hsl(${(h+80)%360}, ${s}%, ${l}%)
+            )`;
+            
+            // 应用渐变
+            rectangle.style.background = backgroundGradient;
+            
+            // 更新进度
+            progress += speed;
+            
+            // 如果进度达到1，切换到下一个颜色
+            if (progress >= 1) {
+                progress = 0;
+                colorIndex = nextColorIndex;
+            }
+            
+            // 持续动画
+            animationId = requestAnimationFrame(updateGradient);
+        }
+        
+        // 启动动画
+        updateGradient();
+    </script>
 </body>
 </html>
-
